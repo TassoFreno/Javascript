@@ -1,4 +1,4 @@
-var idade = 16
+var idade = 22
 
 
 if (idade < 16) {
