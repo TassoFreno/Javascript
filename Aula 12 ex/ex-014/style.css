@@ -1,7 +1,7 @@
 
 
 body {
-    background-color: rgb(70, 142, 236);
+    background-color: rgb(111, 162, 228);
     font: normal;
 }
 
@@ -23,4 +23,9 @@ footer {
     color: white;
     text-align: center;
     font-style: italic;
+}
+
+div {
+    text-align: center;
+    padding: 8px;
 }
