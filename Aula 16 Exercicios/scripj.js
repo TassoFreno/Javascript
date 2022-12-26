@@ -1,28 +1,68 @@
-function contar () {
-    let ini = document.getElementById('txti')
-    let fim = document.getElementById('txtf')
-    let passo = document.getElementById('txtp')
-    let res = document.getElementById('res')
+let num = document.querySelector('input#fnum')
+let list = document.querySelector('select#flista')
+let res = document.querySelector('div#res')
+let valores = []
 
-    if(ini.value.length == 0 || fim.value.length == 0 || passo.value.length == 0) {
-        alert('Erro! Insira os Dados')
+function IsNumero(n) {
+    if(Number(n) >= 1 && Number(n) <= 100) {
+        return true
     } else {
-        res.innerHTML = 'Contando: '
-        let i = Number(ini.value)
-        let f = Number( fim.value)
-        let p = Number(passo.value)
-        if (i < f) {
-
-            // contagem crescente
-            for (let c = i; c <= f; c += p) {
-                res.innerHTML += `${c} \u{1F601}`
-                }
-             }  else {
-                // contagem regressiva
-                for(let c = i; c >= f; c-= p) {
-                    res.innerHTML += `${c} \u{1F449}`
-                }
-            }
-            res.innerHTML += `\u{1F3C1}`
-        }
+        return false
     }
+}
+
+function inLista (n, l) {
+    if (l.indexOf(Number(n)) != -1) {
+        return true
+    } else {
+        return false
+    }
+
+}
+
+
+function adicionar() {
+    if(IsNumero(num.value) && !inLista(num.value, valores)) {
+        valores.push(Number(num.value))
+        let item = document.createElement('option')
+        item.text= `Valor ${num.value} adicionado.`
+        list.appendChild(item)
+        res.innerHTML = ''
+       
+    } else {
+        window.alert('Valor invalido ou ja encontrado na lista')
+ 
+    } 
+    
+    
+    num.value = '' // este comando apaga a lista
+    num.focus()  // focus serve para automaticamente selecionar o campo e inserir novo dado
+
+
+}
+
+function finalizar () {
+    if (valores.length == 0) {
+        window.alert('Adicione valores antes de finalizar')
+    } else {
+        let tot = valores.length
+        let maior = valores[0]
+        let menor = valores[0]
+        let soma = 0
+        let media = 0
+        for(let pos in valores) {
+            soma += valores[pos]
+            if(valores[pos] > maior)
+            maior = valores[pos]
+            if(valores[pos] < menor)
+            menor = valores[pos]
+        }
+        media = soma / tot
+        res.innerHTML = ''
+        res.innerHTML += `<p> Ao todo, temos ${tot} Numeros cadastrados</p>`
+        res.innerHTML += `<p> O Maior valor Informado Foi ${maior} </p>`
+        res.innerHTML += `<p> O Menor valor Informado Foi ${menor} </p>`
+        res.innerHTML += `<p> Somando todos os valores temos ${soma} </p>`
+        res.innerHTML += `<p> A Média dos valores digitados é ${media} </p>`
+    }
+}
